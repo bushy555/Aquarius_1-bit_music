@@ -1,0 +1,11 @@
+Faseuno - Shiru
+
+Assembled to $e000 with SJASMPLUS
+
+
+Load in Binary file : "faseuno.bin"
+at memory $E000
+usr Execution at $0000
+
+Then back at basic, run   X=USR(0)
+

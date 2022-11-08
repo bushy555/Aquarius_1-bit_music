@@ -1,0 +1,11 @@
+Betaphase.
+
+Assembled to $e000
+
+
+Load in Binary file : "betaphase.bin"
+at memory $E000
+usr Execution at $0000
+
+Then back at basic, run   X=USR(0)
+
