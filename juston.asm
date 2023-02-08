@@ -1,47 +1,61 @@
-;BuzzKick - Just on Time.
+;Just on time.
 ;;converted over to Aquarius by Bushy.
-;Assembled to $e000 with Pasmo Assembler.
+;Assembled to $e000 with SJ Assembler.
 ;
 ;
 ;Load in Binary file : "juston.bin"
 ;at memory $E000
 ;usr Execution at $0000
+;
 ;Then back at basic, run   X=USR(0)
 
-
-;--------------------------------
-; BUZZKICK - Just on time,
-; ------------------------------
-;
-
-;	ld	a, aquarius_bit			; Aquarius	1
-;	ld 	a, zx_bit			; ZX		24
-;	ld	a, vz_bit			; VZ		32
-;	ld	a, microbee_bit			; MICROBEE	64
+	output "juston.bin"
 
 
-	aquarius_bit	equ	01
-	zx_bit		equ	24
-	vz_bit		equ	32
-	microbee_bit	equ	64
+; can be customized
+H0: equ 0
+H1: equ 0
+H2: equ 0
+H3: equ 0
+H4: equ 0
+H6: equ 0
+H8: equ 0
+HA: equ 0
+HC: equ 0
+
+; signature: fixed values
+H5: equ $9c
+H7: equ $b0
+H9: equ $6c
+HB: equ $64
+HD: equ $A8
+HF: equ $70
 
 
+HE: equ (HF - $4e - (H3 + H4 + H5 + H6 + H7 + H8 + H9 + HA + HB + HC + HD)) & $ff
 
-;	org	$4000		; Aquarius 4k cassette/cartridge
-;	org	$c000		; Aquarius lower 8k cartridge
-	org	$e000		; Aquarius upper 8k cartridge
-;	org	$100		; Microbee
-;	org	$8000		; VZ
-; 	org	$4000		; ZX Spectrum
+; if H3 == $f7
+; error
+; endif
 
-
-     	db  98, 117, 115, 104
-    	db  121, 156, 50, 176
-   	db  48, 108, 50, 100
-  	db  50, 168, 183, 112
-
-
-
+	org $e000
+; ROM signature
+	db H0
+	db H1
+	db H2
+	db H3
+	db H4
+	db H5
+	db H6
+	db H7
+	db H8
+	db H9
+	db HA
+	db HB
+	db HC
+	db HD
+	db HE
+	db HF
 
 begin
 	ld hl,musicdata1
@@ -139,15 +153,9 @@ noSustain2
 	inc hl
 	or a
 	jr z,$+4
-
-
-	ld	a, aquarius_bit			; Aquarius	1
-;	ld 	a, zx_bit			; ZX		24
-;	ld	a, vz_bit			; VZ		32
-;	ld	a, microbee_bit			; MICROBEE	64
-
-
-
+;	ld a,$18
+;	ld	a, 32
+	ld	a, 1
 	ld (ch1out+1),a
 	jr z,noNote1
 
@@ -173,11 +181,9 @@ noNote1
 	inc hl
 	or a
 	jr z,$+4
-
-	ld	a, aquarius_bit			; Aquarius	1
-;	ld 	a, zx_bit			; ZX		24
-;	ld	a, vz_bit			; VZ		32
-;	ld	a, microbee_bit			; MICROBEE	64
+;	ld a,$18
+;	ld	a, 32
+	ld	a, 1
 
 	ld (ch2out+1),a
 	jr z,noNote2
@@ -237,15 +243,13 @@ mask:
 	and 0					;7
 	sub 1					;7
 	sbc a,a					;4
+	out 	($fc),a					;11		; Aquarius
+;	out 	($fe),a					;11		; ZX
+;	AND	$21							; VZ
+;	ld	($6800), a						; VZ
+;	out 	(2),a					;11		; MICROBEE
 
 
-
-	out	($fc), a			;11			; AQUARIUS
-;	and 	$18				;7			; ZX
-;	out 	($fe),a				;11			; ZX
-;	and 	33							; VZ
-;	ld	(26624), a						; VZ
-;	out 	(2),a				;11			; MICROBEE
 
 	ld a,(mask+1)			;13
 	rlc a					;8
@@ -311,29 +315,28 @@ ch1delay1:
 
 ch1out:
 	ld a,0				;7
+	out 	($fc),a					;11		; Aquarius
+;	out 	($fe),a					;11		; ZX
+;	AND	$21							; VZ
+;	ld	($6800), a						; VZ
+;	out 	(2),a					;11		; MICROBEE
 
 
 
-	out	($fc), a			;11			; AQUARIUS
-;	and 	$18				;7			; ZX
-;	out 	($fe),a				;11			; ZX
-;	and 	33							; VZ
-;	ld	(26624), a						; VZ
-;	out 	(2),a				;11			; MICROBEE
 
 ch1delay2:
 	ld a,0				;7
 	dec a				;4
 	jr nz,$-1			;7/12
 
+	out 	($fc),a					;11		; Aquarius
+;	out 	($fe),a					;11		; ZX
+;	AND	$21							; VZ
+;	ld	($6800), a						; VZ
+;	out 	(2),a					;11		; MICROBEE
 
 
-	out	($fc), a			;11			; AQUARIUS
-;	and 	$18				;7			; ZX
-;	out 	($fe),a				;11			; ZX
-;	and 	33							; VZ
-;	ld	(26624), a						; VZ
-;	out 	(2),a				;11			; MICROBEE
+
 
 ch2
 
@@ -355,15 +358,14 @@ ch2delay1:
 
 ch2out:
 	ld a,0				;7
+	out 	($fc),a					;11		; Aquarius
+;	out 	($fe),a					;11		; ZX
+;	AND	$21							; VZ
+;	ld	($6800), a						; VZ
+;	out 	(2),a					;11		; MICROBEE
 
 
 
-	out	($fc), a			;11			; AQUARIUS
-;	and 	$18				;7			; ZX
-;	out 	($fe),a				;11			; ZX
-;	and 	33							; VZ
-;	ld	(26624), a						; VZ
-;	out 	(2),a				;11			; MICROBEE
 
 
 ch2delay2:
@@ -371,17 +373,14 @@ ch2delay2:
 	dec a				;4
 	jr nz,$-1			;7/12
 
+	out 	($fc),a					;11		; Aquarius
+;	out 	($fe),a					;11		; ZX
+;	AND	$21							; VZ
+;	ld	($6800), a						; VZ
+;	out 	(2),a					;11		; MICROBEE
 
-
-	out	($fc), a			;11			; AQUARIUS
-;	and 	$18				;7			; ZX
-;	out 	($fe),a				;11			; ZX
-;	and 	33							; VZ
-;	ld	(26624), a						; VZ
-;	out 	(2),a				;11			; MICROBEE
 
 loop
-
 	dec b				;4
 	jr nz,soundLoop		;7/12=168t
 
@@ -435,7 +434,6 @@ noEnv2
 
 
 
-
 musicdata1:
 
 
@@ -463,7 +461,7 @@ musicData
  db 0,192,15,0,224,7,0,224,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 .drum6
 .song
- db 249,25,99,99,152,110
+ db 249,25,99,99,168,126
  db 0
  db 0
  db 0
@@ -1747,6 +1745,7 @@ musicData
 .loop
  db 24,0,0
  dw $0080,.loop
+
 
 
 
