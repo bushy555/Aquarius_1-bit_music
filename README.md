@@ -14,8 +14,8 @@ Then within BASIC, run :   X=USR(0)  to run the music player.
 Some can be loaded as a cartridge and perform a soft reset.
 For whatever reason some refuse to work as a cartridge (even with the correct CRC header)
 
-MAME
-mame aquariusp -bp . -cart1 <filename>.bin
+I can't MAME working, but this is the command line:
+mame aquariusp -bp . -cart1 [filename].bin
 
 
 
