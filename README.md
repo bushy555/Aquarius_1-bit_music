@@ -13,6 +13,8 @@ Then within BASIC, run :   X=USR(0)  to run the music player.
 Some can be loaded as a cartridge and perform a soft reset.
 For whatever reason some refuse to work as a cartridge (even with the correct CRC header)
 
+Download : http://www.oocities.org/emucompboy/
+
 
 
 MESS & MAME: Refuse to work at $4000, $C000, or $E000.
