@@ -14,16 +14,14 @@ Some can be loaded as a cartridge and perform a soft reset.
 For whatever reason some refuse to work as a cartridge (even with the correct CRC header)
 
 
-MESS: most work within a 15 year old copy of MESS.
 
+MESS & MAME: Refuse to work at $4000, $C000, or $E000.
 
-MAME: I can't get MAME working to test. 
-
-command line :     mame aquariusp -bp . -cart1 [filename].bin
+command line for cartridges ($C000 or $E000):     mame aquariusp -bp . -cart1 [filename].bin
 
 
 
-Aqualite:  Most (all) do not work in Aqualite coz I'm doing something wrong and I have no idea what.
+Aqualite:  Don't work coz I'm doing something wrong and I have no idea what.
 
 
 
