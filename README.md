@@ -10,22 +10,16 @@ All(?) 1-bit music players have been assembled to $E000 giving them an 8K cartri
 Virtual Aquarius:   Has only has been Tested in James' "Virtual Aquarius" emulator.
 Load the .BIN music player to $E000 with the usr address set to $0000.
 Then within BASIC, run :   X=USR(0)  to run the music player.
-Some can be loaded as a cartridge and perform a soft reset.
-For whatever reason some refuse to work as a cartridge (even with the correct CRC header)
+Some can be loaded as a cartridge and perform a soft reset. These do not require writing back to current memory (which will be in ROM at the time of execution). Those that refuse to work, will probably be trying to write back to ROM locations. Clearly these require a move to lower RAM --- this is a one-of-these-days things to do.
 
-Download : http://www.oocities.org/emucompboy/
 
+VirutalAquarius emulator Download : http://www.oocities.org/emucompboy/
 
 
 
 MESS & MAME: Refuse to work at $4000, $C000, or $E000.
 
 command line for cartridges ($C000 or $E000):     mame aquariusp -bp . -cart1 [filename].bin
-
-
-
-
-Aqualite:  Don't work coz I'm doing something wrong and I have no idea what.
 
 
 
